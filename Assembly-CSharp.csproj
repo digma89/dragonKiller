@@ -45,7 +45,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\_Scripts\DragonController.cs" />
      <Compile Include="Assets\_Scripts\OceanController.cs" />
+     <Compile Include="Assets\_Scripts\TankController.cs" />
      <Compile Include="Assets\scr.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
