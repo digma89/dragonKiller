@@ -1,11 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class GameObjectController : MonoBehaviour {
 
     //Properties
     public Transform tank1;
     public Transform tank2;
+    public Text scoreText;
+    public Text livesText;
+    private int score = 0;
+    private int lives = 10;
 
 	// Use this for initialization
 	void Start () {
@@ -36,5 +41,17 @@ public class GameObjectController : MonoBehaviour {
     {
         Instantiate(tank1);
         Instantiate(tank2);
+    }
+
+    public void IncreseScore(int increse)
+    {
+        score += increse;
+        scoreText.text = "Score: " + score;
+    }
+
+    public void decreselife(int health)
+    {
+        lives -= health;
+        livesText.text = "Lives: " + lives;
     }
 }

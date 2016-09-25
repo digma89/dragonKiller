@@ -11,13 +11,15 @@ public class TankController : MonoBehaviour {
     // When the enemy dies, we play an explosion
     public Transform explosion;
     public int health = 2;  // How many times should I be hit before I die
+    private GameObjectController controller;
     
     // Use this for initialization
     void Start()
     {
         this._transform = this.GetComponent<Transform>();
         this.Speed = Random.Range(2, 7);
-
+        controller = FindObjectOfType(typeof(GameObjectController)) as GameObjectController;
+           
     }
 
     // Update is called once per frame
@@ -75,9 +77,7 @@ public class TankController : MonoBehaviour {
         // anything collided.
         if (theCollision.gameObject.name.Contains("FireBall"))
         {
-            FireController fire =
-                theCollision.gameObject.GetComponent
-                ("FireController") as FireController;
+            FireController fire = theCollision.gameObject.GetComponent("FireController") as FireController;
             health -= fire.damage;
             Destroy(theCollision.gameObject);
         }
@@ -87,17 +87,14 @@ public class TankController : MonoBehaviour {
             // Check if explosion was set
             if (explosion)
             {
-                Debug.Log("tank:" + this.transform.position);
                 Vector3 position = this.transform.position;
-                position.x += 120;
+                position.x += 135;  //don't know why need to give this offset
                 GameObject exploder = ((Transform)Instantiate(explosion, position, this.transform.rotation)).gameObject;
-                Debug.Log("Explotion:" +exploder.transform.position);
-                Debug.Log("tank:" + this.transform.position);
                 Destroy(exploder, 2.0f);
             }
 
             //controller.KilledEnemy();
-            //controller.IncreaseScore(10);
+            controller.IncreseScore(10);
             _reset();
         }
     }
