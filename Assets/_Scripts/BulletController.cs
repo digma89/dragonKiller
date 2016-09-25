@@ -11,6 +11,7 @@ public class BulletController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         //The game object will be destroy after the lifetime have passed 
+       
         Destroy(gameObject, lifetime);
 	}
 	

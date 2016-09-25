@@ -32,7 +32,7 @@ public class TankController : MonoBehaviour {
 
     //this method resets the game object to a random position
     private void _reset()
-    {
+    {              
         this._transform.position = new Vector2(Random.Range(tankNegative, tankPositive), 300f);
     }
 
