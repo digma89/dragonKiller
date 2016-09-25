@@ -6,6 +6,8 @@ public class TankController : MonoBehaviour {
     //Private properties
     private int _speed;
     private Transform _transform;
+    public int tankPositive;
+    public int tankNegative;
 
     public int Speed
     {
@@ -31,13 +33,13 @@ public class TankController : MonoBehaviour {
     //this method resets the game object to a random position
     private void _reset()
     {
-        this._transform.position = new Vector2(Random.Range(-280f, 288f), 270f);
+        this._transform.position = new Vector2(Random.Range(tankNegative, tankPositive), 300f);
     }
 
     //this method checks to see if the game object meets the top-border of screen
     private void _checkBounds()
     {
-        if (this.transform.position.y <= -270f)
+        if (this.transform.position.y <= -300f)
         {
             this._reset();
         }
