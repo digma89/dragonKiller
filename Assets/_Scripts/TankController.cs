@@ -28,9 +28,10 @@ public class TankController : MonoBehaviour {
 
     }
 
-    private void reset()
+    //this method resets the game object to a random position
+    private void _reset()
     {
-        this._transform.position = new Vector2(Random.Range(-280, 288), 270f);
+        this._transform.position = new Vector2(Random.Range(-280f, 288f), 270f);
     }
 
     //this method checks to see if the game object meets the top-border of screen
@@ -43,10 +44,6 @@ public class TankController : MonoBehaviour {
     }
 
     //this method resets the game object to the original position
-    private void _reset()
-    {
-        this._transform.position = new Vector2(0f, 480f);
-    }
 
     // Use this for initialization
     void Start()
