@@ -47,6 +47,7 @@
   <ItemGroup>
      <Compile Include="Assets\_Scripts\BulletController.cs" />
      <Compile Include="Assets\_Scripts\DragonController.cs" />
+     <Compile Include="Assets\_Scripts\ExplotionController.cs" />
      <Compile Include="Assets\_Scripts\FacePlayerController.cs" />
      <Compile Include="Assets\_Scripts\FireController.cs" />
      <Compile Include="Assets\_Scripts\GameObjectController.cs" />

@@ -8,6 +8,26 @@ public class TankController : MonoBehaviour {
     private Transform _transform;
     public int tankPositive;
     public int tankNegative;
+    // When the enemy dies, we play an explosion
+    public Transform explosion;
+    public int health = 2;  // How many times should I be hit before I die
+    
+    // Use this for initialization
+    void Start()
+    {
+        this._transform = this.GetComponent<Transform>();
+        this.Speed = Random.Range(2, 7);
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        this._move();
+        this._checkBounds();
+        
+        
+    }
 
     public int Speed
     {
@@ -32,7 +52,9 @@ public class TankController : MonoBehaviour {
 
     //this method resets the game object to a random position
     private void _reset()
-    {              
+    {
+        health = 2;
+        this.Speed = Random.Range(2, 7);
         this._transform.position = new Vector2(Random.Range(tankNegative, tankPositive), 300f);
     }
 
@@ -41,25 +63,45 @@ public class TankController : MonoBehaviour {
     {
         if (this.transform.position.y <= -300f)
         {
-            this._reset();
+            this._reset();  
         }
     }
 
-    //this method resets the game object to the original position
-
-    // Use this for initialization
-    void Start()
+    void OnCollisionEnter2D(Collision2D theCollision)
     {
-        this._transform = this.GetComponent<Transform>();
-        this.Speed = 5;
+        // Uncomment this line to check for collision
+        //Debug.Log("Hit"+ theCollision.gameObject.name);
+        // this line looks for "laser" in the names of
+        // anything collided.
+        if (theCollision.gameObject.name.Contains("FireBall"))
+        {
+            FireController fire =
+                theCollision.gameObject.GetComponent
+                ("FireController") as FireController;
+            health -= fire.damage;
+            Destroy(theCollision.gameObject);
+        }
 
+        if (health <= 0)
+        {
+            // Check if explosion was set
+            if (explosion)
+            {
+                Debug.Log("tank:" + this.transform.position);
+                Vector3 position = this.transform.position;
+                position.x += 120;
+                GameObject exploder = ((Transform)Instantiate(explosion, position, this.transform.rotation)).gameObject;
+                Debug.Log("Explotion:" +exploder.transform.position);
+                Debug.Log("tank:" + this.transform.position);
+                Destroy(exploder, 2.0f);
+            }
+
+            //controller.KilledEnemy();
+            //controller.IncreaseScore(10);
+            _reset();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        this._move();
-        this._checkBounds();
 
-    }
+
 }

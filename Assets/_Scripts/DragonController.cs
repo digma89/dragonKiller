@@ -11,6 +11,7 @@ public class DragonController : MonoBehaviour {
     private float timeBetweenFires = .3f;     // How much time (in seconds) we should wait before we can fire again    
     private float timeTilNextFire = 0.0f;     // If value is less than or equal 0, we can fire
     public List<KeyCode> shootButton;        // The buttons that we can use to shoot the fireball
+    public int health = 5;  // How many times should I be hit before I die
 
     private void _move()
     {
@@ -55,6 +56,32 @@ public class DragonController : MonoBehaviour {
         firePos.y += (Mathf.Sin((rotationAngle) *
             Mathf.Deg2Rad) * -fireDistance);
         Instantiate(FireBall, firePos, this.transform.rotation);
+    }
+
+    void OnCollisionEnter2D(Collision2D theCollision)
+    {
+        // Uncomment this line to check for collision
+        //Debug.Log("Hit"+ theCollision.gameObject.name);
+        // this line looks for "laser" in the names of
+        // anything collided.
+        if (theCollision.gameObject.name.Contains("Bullet"))
+        {
+            BulletController bullet =
+                theCollision.gameObject.GetComponent
+                ("BulletController") as BulletController;
+            health -= bullet.damage;
+            Destroy(theCollision.gameObject);
+        }
+        
+        if (health <= 0)
+        {
+            // Check if explosion was set
+           
+
+            //controller.KilledEnemy();
+            //controller.IncreaseScore(10);
+            
+        }
     }
 
 }

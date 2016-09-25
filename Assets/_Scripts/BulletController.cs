@@ -6,7 +6,7 @@ public class BulletController : MonoBehaviour {
     //Variables
     public float lifetime = 2.0f; //how long the fire will live
     public float speed = 7.0f; //how fast will the fire move
-    private int damage = 1; //how much damage will do if hit an enemy 
+    public int damage = 1; //how much damage will do if hits me 
 
 	// Use this for initialization
 	void Start () {
