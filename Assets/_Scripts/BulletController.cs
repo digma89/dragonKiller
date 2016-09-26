@@ -4,9 +4,9 @@ using System.Collections;
 public class BulletController : MonoBehaviour {
 
     //Variables
-    public float lifetime = 2.0f; //how long the fire will live
-    public float speed = 7.0f; //how fast will the fire move
-    public int damage = 1; //how much damage will do if hits me 
+    public float lifetime = 2.0f; //how long the bullet will live
+    public float speed = 7.0f; //how fast will the bullet move
+    public int damage = 1; //how much damage will do if hits the target
 
 	// Use this for initialization
 	void Start () {
@@ -18,4 +18,6 @@ public class BulletController : MonoBehaviour {
 	void Update () {
         transform.Translate(Vector2.down * Time.deltaTime * speed);
 	}
+
+
 }

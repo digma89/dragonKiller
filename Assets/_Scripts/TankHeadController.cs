@@ -10,18 +10,19 @@ public class TankHeadController : MonoBehaviour {
     private float timeBetweenFires = .3f;     // How much time (in seconds) we should wait before we can fire again    
     public static float SetTimeTilNextFire = .92f;
     private float timeTilNextFire = SetTimeTilNextFire;     // If value is less than or equal 0, we can fire
+  
    
 
 
 	// Use this for initialization
 	void Start () {
-        target = GameObject.Find("Dragon").transform;
+        target = GameObject.Find("Dragon").transform;  //To find the player and the follow him
 	}
 	
 	// Update is called once per frame
     void Update()
-    {
-        if (target)
+    {       
+        if (target)   //If there is a target, rotate 
         {
             Rotation();           
         }
@@ -32,7 +33,7 @@ public class TankHeadController : MonoBehaviour {
                 timeTilNextFire = timeBetweenFires;
                 _shootFire();              
             }      
-        timeTilNextFire -= Time.deltaTime;
+        timeTilNextFire -= Time.deltaTime;    
     }
 
 
@@ -74,5 +75,5 @@ public class TankHeadController : MonoBehaviour {
             Mathf.Deg2Rad) * -fireDistance);
         Instantiate(Bullet, firePos, this.transform.rotation);
     }
- 
+
 }

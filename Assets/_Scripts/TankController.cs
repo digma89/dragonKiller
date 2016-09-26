@@ -3,21 +3,28 @@ using System.Collections;
 
 public class TankController : MonoBehaviour {
 
-    //Private properties
+    //Properties
     private int _speed;
     private Transform _transform;
-    public int tankPositive;
+    //Boundaries of the tank
+    public int tankPositive; 
     public int tankNegative;
     // When the enemy dies, we play an explosion
     public Transform explosion;
-    public int health = 2;  // How many times should I be hit before I die
+    // How many times should I be hit before I die
+    public int health = 2;  
     private GameObjectController controller;
+    // What sound to play when hit
+    public AudioClip tankExplosion;
+    private bool gameOver = false;
     
     // Use this for initialization
-    void Start()
+    public void Start()
     {
         this._transform = this.GetComponent<Transform>();
+        //Random speed
         this.Speed = Random.Range(2, 7);
+        //Access the GameObjectControll class to change score 
         controller = FindObjectOfType(typeof(GameObjectController)) as GameObjectController;
            
     }
@@ -25,9 +32,11 @@ public class TankController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        this._move();
-        this._checkBounds();
-        
+        if (gameOver == false)
+        {
+            this._move();
+            this._checkBounds();
+        }         
         
     }
 
@@ -53,7 +62,7 @@ public class TankController : MonoBehaviour {
     }
 
     //this method resets the game object to a random position
-    private void _reset()
+    public void _reset()
     {
         health = 2;
         this.Speed = Random.Range(2, 7);
@@ -91,6 +100,8 @@ public class TankController : MonoBehaviour {
                 position.x += 135;  //don't know why need to give this offset
                 GameObject exploder = ((Transform)Instantiate(explosion, position, this.transform.rotation)).gameObject;
                 Destroy(exploder, 2.0f);
+                // Plays a sound from this object's AudioSource
+                GetComponent<AudioSource>().PlayOneShot(tankExplosion);
             }
 
             //controller.KilledEnemy();
@@ -98,7 +109,4 @@ public class TankController : MonoBehaviour {
             _reset();
         }
     }
-
-
-
 }

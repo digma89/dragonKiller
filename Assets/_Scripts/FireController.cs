@@ -17,6 +17,7 @@ public class FireController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        //Move the fire
         transform.Translate(Vector2.up * Time.deltaTime * speed);
 	}
 }
