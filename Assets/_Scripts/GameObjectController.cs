@@ -2,7 +2,8 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class GameObjectController : MonoBehaviour {
+public class GameObjectController : MonoBehaviour
+{
 
     //Properties
     public Transform tank1;
@@ -22,9 +23,10 @@ public class GameObjectController : MonoBehaviour {
     private GameObject cloneGameEnd;
     private GameObject cloneTank1;
     private GameObject cloneTank2;
-    
-	// Use this for initialization
-	void Start () {
+
+    // Use this for initialization
+    void Start()
+    {
         this._generateTanks();
         lives = 10;
         score = 0;
@@ -33,21 +35,22 @@ public class GameObjectController : MonoBehaviour {
         gameOverText.text = "";
         livesText.text = "Lives: " + lives;
         scoreText.text = "Score: " + score;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         if (gameOverV)
         {
             //If the player press R restart the game
             if (Input.GetKeyDown(KeyCode.R))
-            {                
-                Start();                
+            {
+                Start();
                 Destroy(cloneGameEnd);
-                Time.timeScale = 1;                
+                Time.timeScale = 1;
             }
         }
-	}
+    }
 
     private void _generateTanks()
     {
@@ -64,9 +67,10 @@ public class GameObjectController : MonoBehaviour {
     public void decreselife(int health)
     {
         lives -= health;
-        livesText.text = "Lives: " + lives; 
+        livesText.text = "Lives: " + lives;
         //If life is less or equal than 0 stop the game 
-        if(lives <= 0){
+        if (lives <= 0)
+        {
             gameOver();
         }
     }
@@ -76,7 +80,7 @@ public class GameObjectController : MonoBehaviour {
         //Set text 
         gameOverText.text = "Game Over!";
         restartText.text = "Press 'R' to restart the game";
-        gameOverV = true;        
+        gameOverV = true;
         Destroy(cloneTank1);
         Destroy(cloneTank2);
         cloneGameEnd = Instantiate(EndGame).gameObject;

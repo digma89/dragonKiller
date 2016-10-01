@@ -2,7 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class DragonController : MonoBehaviour {
+public class DragonController : MonoBehaviour
+{
 
     //Private properties
     private Transform _transform;
@@ -15,22 +16,42 @@ public class DragonController : MonoBehaviour {
     public AudioClip bulletHitSound;
     public AudioClip fireSound;
 
+
+    // Movement modifier applied to directional movement.
+    private float playerSpeed = 8.0f;
+    // What the current speed of our player is
+
     private void _move()
     {
-        this._transform.position = new Vector2(Mathf.Clamp( Input.mousePosition.x - 320f, -290, 290), -200f);
-    }
-        
-	// Use this for initialization
-	void Start () {
+        //this._transform.position = new Vector2(Mathf.Clamp(Input.mousePosition.x - 320f, -290, 290), -200f);
+      
+    }       
+
+    //move with keyboard
+     void FixedUpdate()
+        {
+            float moveHorizontal = Input.GetAxis("Horizontal");
+
+            Vector2 movement = new Vector2(moveHorizontal, 0.0f);
+            this._transform.Translate(moveHorizontal* playerSpeed, 0, 0,Space.World);
+            this._transform.position = new Vector2(Mathf.Clamp(this._transform.position.x, -280, 280), -200f);  
+           
+        }
+   
+
+    // Use this for initialization
+    void Start()
+    {
         //set the list for the ways of shoot
         this._transform = this.GetComponent<Transform>();
         //To accces the GameObjectController class 
         controller = FindObjectOfType(typeof(GameObjectController)) as GameObjectController;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        _move();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        FixedUpdate();
         // a foreach loop will go through each item inside of
         // shootButton and do whatever we placed in {}s using the
         // element variable to hold the item
@@ -43,8 +64,8 @@ public class DragonController : MonoBehaviour {
                 break;
             }
         }
-        timeTilNextFire -= Time.deltaTime;	
-	}
+        timeTilNextFire -= Time.deltaTime;
+    }
 
     //Creates a fire and gives it an initial position in fron the ship
     private void _shootFire()
@@ -77,7 +98,7 @@ public class DragonController : MonoBehaviour {
             GetComponent<AudioSource>().PlayOneShot(bulletHitSound);
             Destroy(theCollision.gameObject);
         }
-        
+
     }
 
 }
